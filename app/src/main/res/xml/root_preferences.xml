@@ -1,0 +1,85 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_settings_title" />
+
+    <PreferenceCategory app:title="Account Management">
+        <Preference
+            android:defaultValue="system"
+            android:key="pref_key_personal_information"
+            android:summary="Manage your personal details"
+            android:title="Personal Information"
+            app:icon="@drawable/ic_account" />
+
+        <!--        <Preference-->
+        <!--            android:defaultValue="system"-->
+        <!--            android:summary="Update your billing and payment methods"-->
+        <!--            android:title="Billing Information"-->
+        <!--            app:icon="@drawable/ic_billing" />-->
+
+        <Preference
+            android:defaultValue="system"
+            android:summary="Configure your security settings and password"
+            android:title="Security"
+            app:icon="@drawable/ic_security" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="Display">
+        <ListPreference
+            android:defaultValue="system"
+            android:entries="@array/display_mode_entries"
+            android:entryValues="@array/display_mode_values"
+            android:key="pref_key_display_mode"
+            android:summary="Select your preferred display mode"
+            android:title="Display Mode"
+            app:icon="@drawable/ic_dark_mode" />
+
+        <!--        <SwitchPreferenceCompat-->
+        <!--            android:defaultValue="false"-->
+        <!--            android:key="pref_key_hide_balances"-->
+        <!--            android:summary="Enable or disable balance visibility"-->
+        <!--            android:title="Hide balances"-->
+        <!--            app:icon="@drawable/ic_hide_balance"-->
+        <!--            app:switchTextOff="Disabled"-->
+        <!--            app:switchTextOn="Enabled" />-->
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="App Info">
+        <Preference
+            android:icon="@drawable/ic_contact"
+            android:key="pref_key_contact"
+            android:summary="Contact Us if you have any feedback"
+            android:title="Contact Us" />
+
+        <Preference
+            android:icon="@drawable/ic_info"
+            android:key="pref_key_about"
+            android:summary="@string/learn_more"
+            android:title="About" />
+
+        <Preference
+            android:icon="@drawable/ic_faq"
+            android:key="pref_key_faq"
+            android:summary="Frequently Asked Questions"
+            android:title="FAQ" />
+        <Preference
+            android:icon="@drawable/ic_version"
+            android:key="pref_key_version"
+            android:summary="Version"
+            android:title="App Version" />
+    </PreferenceCategory>
+
+    <Preference
+        android:icon="@drawable/ic_logout"
+        android:key="pref_key_logout"
+        android:summary="Tap here to logout from the app"
+        android:title="Logout" />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:layout="@layout/footer" />
+
+</PreferenceScreen>

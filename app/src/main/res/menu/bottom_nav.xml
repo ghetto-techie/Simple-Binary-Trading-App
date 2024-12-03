@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/actionHome"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home_bottom_nav_txt"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/actionMyInvestments"
+        android:icon="@drawable/invest_icon"
+        android:title="@string/investment_history_bottom_nav_txt"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/actionProfile"
+        android:icon="@drawable/analytics_icon"
+        android:title="@string/analytics_bottom_nav_txt"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/actionReferrals"
+        android:icon="@drawable/referral_icon"
+        android:title="@string/referrals_bottom_nav_txt"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/actionsSettings"
+        android:icon="@drawable/settings_icon"
+        android:title="@string/settings_bottom_nav_txt"
+        app:showAsAction="ifRoom|withText" />
+</menu>

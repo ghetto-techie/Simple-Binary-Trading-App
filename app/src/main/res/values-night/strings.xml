@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="id_number">Document Number</string>
+    <string name="save">Save</string>
+    <string name="dob">Date Of Birth\n</string>
+    <string name="middle_name">Middle Name</string>
+</resources>

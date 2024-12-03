@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "755199954119",
+    "firebase_url": "https://big-shamba-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "big-shamba",
+    "storage_bucket": "big-shamba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755199954119:android:992434dabc5be8a636c2e2",
+        "android_client_info": {
+          "package_name": "com.big.shamba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755199954119-gg2pk20pg8oksb7p2f8bsdcftlv42pp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCu5MJOb_jxXiMG9OsEtLh-dwfczZoFCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755199954119-gg2pk20pg8oksb7p2f8bsdcftlv42pp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755199954119:android:508955834762b4f836c2e2",
+        "android_client_info": {
+          "package_name": "link.page.heavenzgate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755199954119-gg2pk20pg8oksb7p2f8bsdcftlv42pp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCu5MJOb_jxXiMG9OsEtLh-dwfczZoFCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755199954119-gg2pk20pg8oksb7p2f8bsdcftlv42pp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

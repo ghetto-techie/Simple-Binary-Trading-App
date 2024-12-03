@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Farm Crest</string>
+    <string name="default_balance">0</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_layout_description">Transaction History</string>
+    <string name="referrals">Referrals</string>
+    <string name="notifications_bottom_nav_txt">Notifications</string>
+    <string name="invite">invite</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="package_type">Poultry</string>
+    <string name="account_balance">Account Balance</string>
+    <string name="btn_enter_txt">enter</string>
+    <string name="email_hint_txt">Email Address</string>
+    <string name="invite_link_description">Use the referral code below to invite others to join the community. You will receive a 10% commission on the new investor\'s first investment.</string>
+    <string name="password">Password</string>
+    <string name="login_button_txt">Sign In</string>
+    <string name="analytics_bottom_nav_txt">Analytics</string>
+    <string name="referrals_bottom_nav_txt">Referrals</string>
+    <string name="home_bottom_nav_txt">Home</string>
+    <string name="settings_bottom_nav_txt">Settings</string>
+    <string name="investment_history_bottom_nav_txt">Investments</string>
+    <string name="learn_more">Learn more about us</string>
+
+    <string name="profile_image">Profile Image</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email Address</string>
+    <string name="sample_first_name">John</string>
+    <string name="sample_last_name">Doe</string>
+    <string name="sample_email">john.doe@example.com</string>
+    <string name="id_number">Document Number</string>
+    <string name="save">Save</string>
+    <string name="dob">Date Of Birth\n</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="middle_name">Middle Name</string>
+
+</resources>
