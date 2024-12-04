@@ -57,7 +57,6 @@ public class ReferralService {
         Log.d(TAG, "getReferralCommissions: ");
         return firestoreService
                 .getWalletTransactions()
-                .orderBy("timestamp", Query.Direction.ASCENDING)
                 .whereEqualTo("type", TransactionType.REFERRAL_COMMISSION)
                 .whereEqualTo("userId", userId)
                 .get()
@@ -97,6 +96,7 @@ public class ReferralService {
                         if (querySnapshot != null) {
                             for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
                                 ReferralCommissionWalletTransaction transaction = documentSnapshot.toObject(ReferralCommissionWalletTransaction.class);
+                                Log.d(TAG, "getTotalSumOfReferralCommissions: transaction -> " + transaction.toString());
                                 totalCommissions += transaction.getAmount();
                             }
                         }

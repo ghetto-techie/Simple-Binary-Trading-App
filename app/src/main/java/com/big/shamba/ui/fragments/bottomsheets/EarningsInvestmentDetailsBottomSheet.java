@@ -33,6 +33,7 @@ import java.util.Locale;
 public class EarningsInvestmentDetailsBottomSheet extends BottomSheetDialogFragment {
     private static final String TAG = "EarningsInvestmentDetai";
     private static final String ARG_PACKAGE_ID = "packageID";
+    private static final String ARG_SHOW_BUTTON = "show";
     private static final String ARG_IMG_URL = "imgUrl";
     private static final String ARG_PACKAGE_NAME = "packageName";
     private static final String ARG_PACKAGE_TYPE = "packageType";
@@ -62,7 +63,8 @@ public class EarningsInvestmentDetailsBottomSheet extends BottomSheetDialogFragm
 
     public static EarningsInvestmentDetailsBottomSheet newInstance(
             InvestmentPackage investmentPackage,
-            Investment investment
+            Investment investment,
+            boolean showButton
     ) {
         Log.d(TAG, "newInstance: ");
         EarningsInvestmentDetailsBottomSheet fragment = new EarningsInvestmentDetailsBottomSheet();
@@ -70,6 +72,7 @@ public class EarningsInvestmentDetailsBottomSheet extends BottomSheetDialogFragm
         if (investmentPackage != null) {
             Log.d(TAG, "newInstance: Investment Package -> " + investmentPackage);
             args.putString(ARG_INVESTMENT_ID, (investment.getInvestmentId() == null) ? "" : investment.getInvestmentId());
+            args.putBoolean(ARG_SHOW_BUTTON, showButton);
             args.putString(ARG_PACKAGE_ID, investmentPackage.getPackageId());
             args.putString(ARG_IMG_URL, investmentPackage.getImgUrl());
             args.putString(ARG_PACKAGE_NAME, investmentPackage.getName());
@@ -146,46 +149,52 @@ public class EarningsInvestmentDetailsBottomSheet extends BottomSheetDialogFragm
             String investmentId = getArguments().getString(ARG_INVESTMENT_ID);
             boolean isEarningsAdded = getArguments().getBoolean(ARG_EARNINGS_ADDED);
 
-            if (isEarningsAdded) {
-                int backgroundColor = ContextCompat.getColor(requireContext(), R.color.color_error_red);
-                ColorStateList colorStateList = ColorStateList.valueOf(backgroundColor);
-                addProfitToWalletBtn.setBackgroundTintList(colorStateList);
-                addProfitToWalletBtn.setIcon(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_cancel));
-                addProfitToWalletBtn.setText("Funds already claimed!");
-                addProfitToWalletBtn.setOnClickListener(v -> {
-                    Toast.makeText(requireContext(), "Your profits have already been added to your wallet", Toast.LENGTH_LONG).show();
-                });
+            boolean show = getArguments().getBoolean(ARG_SHOW_BUTTON);
+            if (show) {
+                addProfitToWalletBtn.setVisibility(View.VISIBLE);
+                if (isEarningsAdded) {
+                    int backgroundColor = ContextCompat.getColor(requireContext(), R.color.color_error_red);
+                    ColorStateList colorStateList = ColorStateList.valueOf(backgroundColor);
+                    addProfitToWalletBtn.setBackgroundTintList(colorStateList);
+                    addProfitToWalletBtn.setIcon(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_cancel));
+                    addProfitToWalletBtn.setText("Funds already claimed!");
+                    addProfitToWalletBtn.setOnClickListener(v -> {
+                        Toast.makeText(requireContext(), "Your profits have already been added to your wallet", Toast.LENGTH_LONG).show();
+                    });
+                } else {
+                    addProfitToWalletBtn.setEnabled(true);
+                    addProfitToWalletBtn.setText("Save to wallet");
+                    addProfitToWalletBtn.setOnClickListener(v -> {
+                        String userId = authViewModel.getCurrentUser().getValue().getUid();
+                        Log.d(TAG, "addProfitToWalletBtn clicked: userId -> " + userId + ", investmentId -> " + investmentId);
+                        progressDialog.setMessage("Adding earnings to wallet...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                        walletViewModel.addInvestmentEarningsToWallet(userId, investmentId)
+                                .addOnCompleteListener(task -> {
+                                    progressDialog.dismiss();
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(requireContext(), "Funds added to wallet successfully", Toast.LENGTH_SHORT).show();
+                                        dismiss();
+                                    } else {
+                                        String errorMessage = task.getException().getMessage();
+                                        new MaterialAlertDialogBuilder(requireContext())
+                                                .setIcon(R.drawable.ic_cancel)
+                                                .setTitle("Funds NOT added")
+                                                .setPositiveButton("Ok", ((dialogInterface, i) -> {
+                                                    dialogInterface.dismiss();
+                                                }))
+                                                .setMessage(errorMessage)
+                                                .create()
+                                                .show()
+                                        ;
+                                    }
+                                })
+                        ;
+                    });
+                }
             } else {
-                addProfitToWalletBtn.setEnabled(true);
-                addProfitToWalletBtn.setText("Save to wallet");
-                addProfitToWalletBtn.setOnClickListener(v -> {
-                    String userId = authViewModel.getCurrentUser().getValue().getUid();
-                    Log.d(TAG, "addProfitToWalletBtn clicked: userId -> " + userId + ", investmentId -> " + investmentId);
-                    progressDialog.setMessage("Adding earnings to wallet...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
-                    walletViewModel.addInvestmentEarningsToWallet(userId, investmentId)
-                            .addOnCompleteListener(task -> {
-                                progressDialog.dismiss();
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(requireContext(), "Funds added to wallet successfully", Toast.LENGTH_SHORT).show();
-                                    dismiss();
-                                } else {
-                                    String errorMessage = task.getException().getMessage();
-                                    new MaterialAlertDialogBuilder(requireContext())
-                                            .setIcon(R.drawable.ic_cancel)
-                                            .setTitle("Funds NOT added")
-                                            .setPositiveButton("Ok", ((dialogInterface, i) -> {
-                                                dialogInterface.dismiss();
-                                            }))
-                                            .setMessage(errorMessage)
-                                            .create()
-                                            .show()
-                                    ;
-                                }
-                            })
-                    ;
-                });
+                addProfitToWalletBtn.setVisibility(View.GONE);
             }
         }
 

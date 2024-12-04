@@ -94,6 +94,8 @@ public class CommissionFragment extends Fragment {
                             }
                         })
                 ;
+            } else {
+                Log.d(TAG, "onViewCreated: User NOT logged in!");
             }
         });
     }

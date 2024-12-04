@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,10 +25,9 @@ import com.big.shamba.data.firebase.InvestmentPackageService;
 import com.big.shamba.data.firebase.ReferralService;
 import com.big.shamba.data.firebase.UserService;
 import com.big.shamba.data.firebase.WalletService;
-import com.big.shamba.ui.adapter.views.MainBanner;
 import com.big.shamba.ui.fragments.DashboardFragment;
 import com.big.shamba.ui.fragments.HomeFragment;
-import com.big.shamba.ui.fragments.MyInvestmentsFragment;
+import com.big.shamba.ui.fragments.UserInvestmentsFragment;
 import com.big.shamba.ui.fragments.ReferralFragment;
 import com.big.shamba.ui.fragments.SettingsFragment;
 import com.big.shamba.ui.fragments.dialogs.InviteUserDialogFragment;
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     //    private MainBanner mainBanner;
     private HomeFragment homeFragment;
-    private MyInvestmentsFragment myInvestmentsFragment;
+    private UserInvestmentsFragment userInvestmentsFragment;
     private DashboardFragment dashboardFragment;
     private SettingsFragment settingsFragment;
     private ReferralFragment referralFragment;
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize fragments
         homeFragment = new HomeFragment();
-        myInvestmentsFragment = new MyInvestmentsFragment();
+        userInvestmentsFragment = new UserInvestmentsFragment();
         dashboardFragment = new DashboardFragment();
         referralFragment = new ReferralFragment();
         settingsFragment = new SettingsFragment();
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 loadFragment(dashboardFragment);
                 return true;
             } else if (selectedNavItemId == R.id.actionMyInvestments) {
-                loadFragment(myInvestmentsFragment);
+                loadFragment(userInvestmentsFragment);
                 return true;
             } else if (selectedNavItemId == R.id.actionsSettings) {
                 loadFragment(settingsFragment);
@@ -232,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            investmentPackageViewModel.fetchInvestmentPackages();
+            investmentPackageViewModel.fetchVisibleInvestmentPackages();
             investmentViewModel.fetchMaturedInvestmentsRealtime(userId);
             investmentViewModel.fetchAllUserInvestmentsRealtime(userId);
         }
@@ -263,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (selectedNavItemId == R.id.actionProfile) {
             fragment = dashboardFragment;
         } else if (selectedNavItemId == R.id.actionMyInvestments) {
-            fragment = myInvestmentsFragment;
+            fragment = userInvestmentsFragment;
         } else if (selectedNavItemId == R.id.actionsSettings) {
             fragment = settingsFragment;
         } else if (selectedNavItemId == R.id.actionReferrals) {

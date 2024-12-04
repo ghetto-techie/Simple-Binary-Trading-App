@@ -56,10 +56,7 @@ public class WalletService {
         });
     }
 
-    public Task<Void> addInvestmentEarningsToWallet(
-            String userId,
-            String investmentId
-    ) {
+    public Task<Void> addInvestmentEarningsToWallet(String userId, String investmentId) {
         Log.d(TAG, "addInvestmentEarningsToWallet: userId=" + userId + ", investmentId=" + investmentId);
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
@@ -117,7 +114,11 @@ public class WalletService {
 
                             // Calculate profit
                             long profit = (long) getProfitOfIndividualInvestment(investment, investmentPackage);
+                            long principalAmount = investment.getAmount();
+                            long totalEarnings = profit + principalAmount;
                             Log.d(TAG, "addInvestmentEarningsToWallet: Profit > " + profit);
+                            Log.d(TAG, "addInvestmentEarningsToWallet: Principal Amount > " + principalAmount);
+                            Log.d(TAG, "addInvestmentEarningsToWallet: Total Earnings > " + totalEarnings);
 
                             // Fetch the user
                             DocumentSnapshot userSnapshot = transaction.get(userDocRef);
@@ -135,7 +136,7 @@ public class WalletService {
                             Log.d(TAG, "addInvestmentEarningsToWallet: earningsAdded set to true");
 
                             // Update the user's wallet balance
-                            long newBalance = user.getWalletBalance() + profit;
+                            long newBalance = user.getWalletBalance() + totalEarnings;
                             Log.d(TAG, "addInvestmentEarningsToWallet: New Balance > " + newBalance);
                             transaction.update(userDocRef, "walletBalance", newBalance);
 
@@ -143,7 +144,7 @@ public class WalletService {
                             InvestmentEarningWalletTransaction transactionRecord =
                                     new InvestmentEarningWalletTransaction(
                                             userId,
-                                            (long) profit,
+                                            totalEarnings, // Include total earnings here
                                             TransactionType.INVESTMENT_EARNING,
                                             investmentId
                                     );
@@ -156,8 +157,6 @@ public class WalletService {
                             taskCompletionSource.setResult(null);
                         }).addOnFailureListener(e -> {
                             Log.d(TAG, "Error adding investment earnings to wallet: ", e);
-                            Log.d(TAG, "Error adding investment earnings to wallet: Error > " + e.getMessage());
-                            e.printStackTrace();
                             taskCompletionSource.setException(e);
                         });
                     }
@@ -169,6 +168,7 @@ public class WalletService {
 
         return taskCompletionSource.getTask();
     }
+
 
     public void addReferralCommission(
             Transaction transaction,

@@ -27,6 +27,11 @@ public class InvestmentViewModel extends ViewModel {
     private final MutableLiveData<List<Investment>> maturedInvestmentsLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<Investment>> allUserInvestmentsLiveData = new MutableLiveData<>();
     private final MutableLiveData<InvestmentPackage> investmentPackage = new MutableLiveData<>();
+
+    private final MutableLiveData<List<Investment>> allInvestmentsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Investment>> filteredInvestmentsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Double> totalEarningsLiveData = new MutableLiveData<>();
+
     private ListenerRegistration totalEarningsListenerRegistration;
 
     public InvestmentViewModel(InvestmentService investmentService) {
@@ -58,7 +63,8 @@ public class InvestmentViewModel extends ViewModel {
                     totalEarnings.setValue(0.0);
                     e.printStackTrace();
                     Log.d(TAG, "fetchTotalEarnings: Failed to get total earnings", e);
-                });
+                })
+        ;
     }
 
     public void fetchMaturedInvestments(String userId) {
@@ -164,6 +170,55 @@ public class InvestmentViewModel extends ViewModel {
                         }
                 )
         ;
+    }
+
+    // Load all investments
+    public void loadInvestments(String userId) {
+        Log.d(TAG, "loadInvestments: _");
+        investmentService.fetchAllInvestments(userId)
+                .addOnSuccessListener(investments -> {
+                    Log.d(TAG, "loadInvestments: investments -> " + investments);
+                    allInvestmentsLiveData.setValue(investments);
+                    filterInvestments("all"); // Default filter
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "loadInvestments: Failed", e))
+        ;
+    }
+
+    // Filter investments by status
+    public void filterInvestments(String filter) {
+        List<Investment> allInvestments = allInvestmentsLiveData.getValue();
+        if (allInvestments == null) return;
+
+        List<Investment> filteredList = new ArrayList<>();
+        switch (filter) {
+            case "pending":
+                for (Investment investment : allInvestments) {
+                    if (!investment.isMatured()) filteredList.add(investment);
+                }
+                break;
+            case "matured":
+                for (Investment investment : allInvestments) {
+                    if (investment.isMatured()) filteredList.add(investment);
+                }
+                break;
+            case "all":
+            default:
+                filteredList = new ArrayList<>(allInvestments);
+                break;
+        }
+
+        filteredInvestmentsLiveData.setValue(filteredList);
+    }
+
+    // Get LiveData for filtered investments
+    public LiveData<List<Investment>> getFilteredInvestments() {
+        return filteredInvestmentsLiveData;
+    }
+
+    // Get LiveData for total earnings
+    public LiveData<Double> getTotalEarningsLiveData() {
+        return totalEarningsLiveData;
     }
 
     public void fetchTotalEarningsCountRealTime(String userId) {

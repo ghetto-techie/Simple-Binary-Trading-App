@@ -33,13 +33,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class InvestmentService {
     private static final String TAG = "InvestmentService";
-
     private final FirebaseFirestore firestore;
-
     private final FirestoreService firestoreService;
-
     private final WalletService walletService;
-
     private final InvestmentPackageService investmentPackageService;
 
     public InvestmentService(
@@ -50,6 +46,17 @@ public class InvestmentService {
         this.firestoreService = firestoreService;
         this.walletService = walletService;
         this.investmentPackageService = investmentPackageService;
+
+        this.firestore = firestoreService.getFirestore();
+        Log.d(TAG, "InvestmentService: ");
+    }
+
+    public InvestmentService(
+            FirestoreService firestoreService
+    ) {
+        this.firestoreService = firestoreService;
+        this.walletService = new WalletService(firestoreService);
+        this.investmentPackageService = new InvestmentPackageService(firestoreService);
 
         this.firestore = firestoreService.getFirestore();
         Log.d(TAG, "InvestmentService: ");
@@ -164,6 +171,30 @@ public class InvestmentService {
         CollectionReference investmentsRef = firestore.collection(FirestoreCollections.INVESTMENTS);
         Query query = investmentsRef.whereEqualTo("userId", userId)
                 .whereEqualTo("matured", true);
+
+        return query.get().continueWith(task -> {
+            if (!task.isSuccessful()) {
+                Log.d(TAG, "fetchMaturedInvestments: Could NOT get investments" + task.getException());
+                throw task.getException();
+            }
+
+            List<Investment> maturedInvestments = new ArrayList<>();
+            QuerySnapshot querySnapshot = task.getResult();
+
+            for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                Investment investment = document.toObject(Investment.class);
+                Log.d(TAG, "fetchMaturedInvestments: Investment[" + document.getId() + "] -> " + investment);
+                maturedInvestments.add(investment);
+            }
+            Log.d(TAG, "fetchMaturedInvestments: All Mature investments" + maturedInvestments);
+            return maturedInvestments;
+        });
+    }
+
+    public Task<List<Investment>> fetchAllInvestments(String userId) {
+        Log.d(TAG, "fetchAllInvestments: _");
+        CollectionReference investmentsRef = firestore.collection(FirestoreCollections.INVESTMENTS);
+        Query query = investmentsRef.whereEqualTo("userId", userId);
 
         return query.get().continueWith(task -> {
             if (!task.isSuccessful()) {

@@ -96,7 +96,7 @@ public class EarningRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
                             investmentViewHolder.itemView.setOnClickListener(view -> {
                                 EarningsInvestmentDetailsBottomSheet earningsInvestmentDetailsBottomSheet =
-                                        EarningsInvestmentDetailsBottomSheet.newInstance(investmentPackage, investment);
+                                        EarningsInvestmentDetailsBottomSheet.newInstance(investmentPackage, investment, true);
                                 earningsInvestmentDetailsBottomSheet
                                         .show(activity.getSupportFragmentManager(), earningsInvestmentDetailsBottomSheet.getTag());
                             });

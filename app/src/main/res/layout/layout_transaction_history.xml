@@ -24,7 +24,7 @@
         android:layout_marginTop="8dp"
         app:tabGravity="center"
         app:tabIndicatorGravity="bottom"
-        app:tabMode="scrollable" />
+        app:tabMode="fixed" />
 
     <FrameLayout
         android:id="@+id/transactionHistoryFrameLayout"

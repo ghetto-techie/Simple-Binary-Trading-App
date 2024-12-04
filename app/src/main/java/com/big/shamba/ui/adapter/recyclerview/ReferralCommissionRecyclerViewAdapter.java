@@ -93,12 +93,24 @@ public class ReferralCommissionRecyclerViewAdapter extends RecyclerView.Adapter<
 
         public void onBind(Referral referral, ReferralCommissionWalletTransaction transaction) {
             Log.d(TAG, "onBind: Transactions -> " + transaction.toString() + "\n: Referral -> " + referral.toString());
+
+            // Handle referral name
             name.setText(referral != null ? referral.getName() : "Unknown Referral");
+
+            // Handle commission
             commission.setText(String.format("+%s", transaction.getAmount()));
+
+            // Handle date formatting with null-check
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-            Log.d(TAG, "onBind: Timestamp -> " + transaction.getTimeStamp());
-//            date.setText(sdf.format(transaction.getTimeStamp()));
+            if (transaction.getTimeStamp() != null) {
+                Log.d(TAG, "onBind: Timestamp -> " + transaction.getTimeStamp());
+                date.setText(sdf.format(transaction.getTimeStamp()));
+            } else {
+                Log.d(TAG, "onBind: Timestamp is null");
+                date.setText("Date unavailable");
+            }
         }
+
     }
 
     static class ShimmerViewHolder extends RecyclerView.ViewHolder {
