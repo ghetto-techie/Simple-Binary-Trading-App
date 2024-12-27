@@ -11,7 +11,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
-public class FarmCrestVentures extends Application {
+public class ElevateCryptoTrade extends Application {
 
     private NetworkLiveData networkLiveData; // NetworkLiveData instance
 

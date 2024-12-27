@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.big.shamba.FarmCrestVentures;
+import com.big.shamba.ElevateCryptoTrade;
 import com.big.shamba.R;
 import com.big.shamba.data.firebase.AuthService;
 import com.big.shamba.data.firebase.FirestoreService;
@@ -45,6 +45,7 @@ import com.big.shamba.ui.viewmodels.factories.UserViewModelFactory;
 import com.big.shamba.ui.viewmodels.factories.WalletViewModelFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
@@ -89,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize fragments
         homeFragment = new HomeFragment();
-        userInvestmentsFragment = new UserInvestmentsFragment();
         dashboardFragment = new DashboardFragment();
+        userInvestmentsFragment = new UserInvestmentsFragment();
         referralFragment = new ReferralFragment();
         settingsFragment = new SettingsFragment();
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             if (selectedNavItemId == R.id.actionHome) {
                 loadFragment(homeFragment);
                 return true;
-            } else if (selectedNavItemId == R.id.actionProfile) {
+            } else if (selectedNavItemId == R.id.actionDashboard) {
                 loadFragment(dashboardFragment);
                 return true;
             } else if (selectedNavItemId == R.id.actionMyInvestments) {
@@ -123,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FarmCrestVentures app = (FarmCrestVentures) getApplicationContext();
+        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
+
+        ElevateCryptoTrade app = (ElevateCryptoTrade) getApplicationContext();
         app.getNetworkLiveData().observe(this, isConnected -> {
             if (Boolean.FALSE.equals(isConnected)) {
                 Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -258,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (selectedNavItemId == R.id.actionHome) {
             fragment = homeFragment;
-        } else if (selectedNavItemId == R.id.actionProfile) {
+        } else if (selectedNavItemId == R.id.actionDashboard) {
             fragment = dashboardFragment;
         } else if (selectedNavItemId == R.id.actionMyInvestments) {
             fragment = userInvestmentsFragment;

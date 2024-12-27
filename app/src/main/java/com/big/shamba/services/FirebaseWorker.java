@@ -13,12 +13,9 @@ import com.big.shamba.data.firebase.FirestoreService;
 import com.big.shamba.data.firebase.InvestmentService;
 import com.big.shamba.data.firebase.InvestmentPackageService;
 import com.big.shamba.data.firebase.WalletService;
-import com.big.shamba.models.Investment;
 import com.big.shamba.ui.viewmodels.AuthViewModel;
 import com.big.shamba.ui.viewmodels.InvestmentViewModel;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.List;
 
 public class FirebaseWorker extends Worker {
     private static final String TAG = "FirebaseWorker";

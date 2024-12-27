@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".FarmCrestVentures"
+        android:name=".ElevateCryptoTrade"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,9 +20,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HarvestGate"
+        android:theme="@style/Theme.ElevateCryptoTrade"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.AuthActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
@@ -30,6 +32,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -44,29 +47,29 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.VIEW" />-->
 
-            <!--                <category android:name="android.intent.category.DEFAULT" />-->
-            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-            <!--                <data-->
-            <!--                    android:host="heavenzgate.page.link"-->
-            <!--                    android:pathPrefix="/referrals"-->
-            <!--                    android:scheme="https" />-->
-            <!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+
+
+            <!-- <data -->
+            <!-- android:host="heavenzgate.page.link" -->
+            <!-- android:pathPrefix="/referrals" -->
+            <!-- android:scheme="https" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.CreateAccountActivity"
             android:exported="true"
@@ -88,7 +91,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
 
         <meta-data
             android:name="preloaded_fonts"

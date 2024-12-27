@@ -1,11 +1,8 @@
 package com.big.shamba.ui.viewmodels.factories;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.big.shamba.data.pesapal.PesapalRepository;
-import com.big.shamba.ui.viewmodels.PesapalViewModel;
 
 public class PesapalViewModelFactory implements ViewModelProvider.Factory {
     private final PesapalRepository repository;

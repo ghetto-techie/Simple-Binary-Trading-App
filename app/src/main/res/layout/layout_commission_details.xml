@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/nunito_light"
             android:text="Commission Earned"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -25,7 +25,7 @@
             android:id="@+id/commissionEarnedTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/nunito_bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             tools:text="Ksh. 20000" />
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/nunito_light"
             android:text="Referral"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -42,7 +42,7 @@
             android:id="@+id/commissionReferralNameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/nunito_bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             tools:text="John Doe" />

@@ -27,7 +27,7 @@
                     android:id="@+id/packageNameTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/nunito_semibold"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     tools:text="Chicken" />
 
@@ -35,7 +35,7 @@
                     android:id="@+id/packageTypeTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
+                    android:fontFamily="@font/nunito"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     tools:text="Poultry" />
             </LinearLayout>

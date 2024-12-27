@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.big.shamba.R;
 import com.big.shamba.models.Referral;
 import com.big.shamba.models.ReferralCommissionWalletTransaction;
 import com.big.shamba.ui.adapter.recyclerview.ReferralCommissionRecyclerViewAdapter;
 import com.big.shamba.ui.viewmodels.AuthViewModel;
 import com.big.shamba.ui.viewmodels.ReferralViewModel;
-import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +49,12 @@ public class CommissionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_commission, container, false);
         commissions = new ArrayList<>();
+        // Initialize LottieAnimationView
+        LottieAnimationView inviteAnimationView = view.findViewById(R.id.emptyListAnimationView);
+
+        // Ensure animation is played
+        inviteAnimationView.setAnimation(R.raw.empty); // Optional if already set in XML
+        inviteAnimationView.playAnimation();
 
         // Initialize Shimmer Layout
 //        shimmerFrameLayout = view.findViewById(R.id.shimmerLayout);

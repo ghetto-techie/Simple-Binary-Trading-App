@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.HarvestGate" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ElevateCryptoTrade" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <!-- Primary brand color. -->
@@ -16,10 +16,16 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.HarvestGate" parent="Base.Theme.HarvestGate" />
-    
+    <style name="Theme.ElevateCryptoTrade" parent="Base.Theme.ElevateCryptoTrade" />
+
     <style name="LightToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="backgroundColor">@android:color/white</item>
         <item name="titleTextColor">@android:color/white</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.App.Corner.Full" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

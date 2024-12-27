@@ -59,7 +59,11 @@ public class AuthService {
                 });
     }
 
-    public Task<AuthResult> reauthenticate(@NonNull FirebaseUser user, String email, String password) {
+    public Task<AuthResult> reauthenticate(
+            @NonNull FirebaseUser user,
+            String email,
+            String password
+    ) {
         return user.reauthenticateAndRetrieveData(
                         EmailAuthProvider.getCredential(email, password))
                 .continueWith(task -> {

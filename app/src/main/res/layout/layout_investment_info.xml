@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_light"
+                android:fontFamily="@font/nunito_light"
                 android:text="Interest rate"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -30,7 +30,7 @@
                 android:id="@+id/packageInterestRateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/nunito_semibold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 tools:text="10%" />
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_light"
+                android:fontFamily="@font/nunito_light"
                 android:text="Investment period"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -54,7 +54,7 @@
                 android:id="@+id/packageTimePeriodTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/nunito_semibold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
                 tools:text="14 days" />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_light"
+        android:fontFamily="@font/nunito_light"
         android:text="Amount invested"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -73,7 +73,7 @@
         android:id="@+id/investmentAmountTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/nunito_semibold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         tools:text="Ksh. 20000" />
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_light"
+        android:fontFamily="@font/nunito_light"
         android:text="Interest earned"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -90,7 +90,7 @@
         android:id="@+id/investmentInterestEarnedTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/nunito_semibold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         tools:text="Ksh. 1000000" />
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_light"
+                android:fontFamily="@font/nunito_light"
                 android:text="Invested On"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -120,7 +120,7 @@
                 android:id="@+id/investmentStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/nunito_semibold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:text="1 June 2024, 7:00" />
         </LinearLayout>
@@ -135,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_light"
+                android:fontFamily="@font/nunito_light"
                 android:text="Matured On"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -143,7 +143,7 @@
                 android:id="@+id/investmentEndDateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/nunito_semibold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:text="14 June 2024, 7:00" />
         </LinearLayout>

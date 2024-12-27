@@ -29,10 +29,8 @@ import com.big.shamba.ui.viewmodels.UserViewModel;
 import com.big.shamba.ui.viewmodels.WalletViewModel;
 import com.big.shamba.ui.viewmodels.PesapalViewModel;
 import com.big.shamba.utility.TokenStorage;
-import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +46,11 @@ public class DashboardFragment extends Fragment {
     private InvestmentViewModel investmentViewModel;
     private ReferralViewModel referralViewModel;
 
-    private CircularImageView userDisplayImage;
     private MaterialButton depositButton;
     private MaterialButton withdrawalButton;
 
     private TextView totalAccountBalanceTV;
     private TextView userNameTV;
-    private TextView userEmailTV;
 
     private TextView totalEarningsTV;
     private TextView totalReferralsTV;
@@ -95,8 +91,6 @@ public class DashboardFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         tabLayout = view.findViewById(R.id.tabLayout);
         totalAccountBalanceTV = view.findViewById(R.id.totalAccountBalanceTV);
-        userEmailTV = view.findViewById(R.id.emailAddressNav);
-        userDisplayImage = view.findViewById(R.id.profileImageNav);
         userNameTV = view.findViewById(R.id.userNameNav);
         depositButton = view.findViewById(R.id.depositBtn);
         withdrawalButton = view.findViewById(R.id.withdrawBtn);
@@ -151,16 +145,15 @@ public class DashboardFragment extends Fragment {
                                 .observe(getViewLifecycleOwner(), user -> {
                                     if (user != null) {
                                         userNameTV.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
-                                        userEmailTV.setText(user.getEmail());
                                         String imageUrl = user.getImageUrl();
                                         if (imageUrl != null && !imageUrl.isEmpty()) {
-                                            Glide
-                                                    .with(this)
-                                                    .load(imageUrl)
-                                                    .centerCrop()
-                                                    .placeholder(R.drawable.icon_light)
-                                                    .into(userDisplayImage)
-                                            ;
+//                                            Glide
+//                                                    .with(this)
+//                                                    .load(imageUrl)
+//                                                    .centerCrop()
+//                                                    .placeholder(R.drawable.icon_light)
+//                                                    .into(userDisplayImage)
+//                                            ;
                                         }
                                     }
                                 })

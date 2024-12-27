@@ -19,12 +19,17 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        style="@style/Widget.Design.TabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:tabGravity="center"
+        app:tabBackground="@drawable/tabs_selector"
+        app:tabGravity="fill"
+        app:tabIndicator="@null"
         app:tabIndicatorGravity="bottom"
-        app:tabMode="fixed" />
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="?attr/colorControlNormal" />
 
     <FrameLayout
         android:id="@+id/transactionHistoryFrameLayout"

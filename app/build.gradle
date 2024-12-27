@@ -9,7 +9,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.big.shamba"
+        applicationId "com.elevatecryptotrade"
         minSdk 23
         targetSdk 34
         versionCode 1
@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation "com.airbnb.android:lottie:3.7.0"
+    implementation "com.airbnb.android:lottie:6.0.0"
 
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation "androidx.work:work-runtime:2.8.0"
@@ -45,7 +45,8 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
-    implementation 'androidx.security:security-crypto:1.1.0-alpha06' // Latest version of AndroidX Security Crypto
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    // Latest version of AndroidX Security Crypto
 
     implementation 'com.google.android.material:material:1.12.0' // Material Design
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0' // Constraint Layout
@@ -72,6 +73,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:22.1.2' // Analytics
     // implementation 'com.google.firebase:firebase-dynamic-links:22.1.0' // Dynamic Links
     implementation 'com.google.firebase:firebase-dynamic-links-ktx:21.0.1'
+    implementation 'androidx.activity:activity:1.9.3'
+    implementation 'androidx.navigation:navigation-fragment:2.8.5'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'

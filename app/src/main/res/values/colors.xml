@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Neutral Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color_primary_light">#7FA85A</color>
-    <color name="color_primary">#4B702A</color>
-    <color name="color_primary_dark">#293F11</color>
-    <color name="color_accent">#E67E22</color>
-    <color name="color_accent_dark">#A65B18</color>
 
-    <color name="color_earnings">#F44336</color>
-    <color name="color_withdrawals">#FF9800</color>
-    <color name="color_commission">#03A9F4</color>
-    <color name="color_referrals">#E91E63</color>
+    <!-- Primary Colors (Dark Blue Theme) -->
+    <color name="color_primary_light">#4E92D0</color> <!-- Light Blue -->
+    <color name="color_primary">#1E3A8A</color> <!-- Dark Blue -->
+    <color name="color_primary_dark">#12264D</color> <!-- Very Dark Blue -->
 
-    <color name="pendingColor">#FFFF00</color>
-    <color name="completedColor">#00FF00</color>
-    <color name="failedColor">#FF0000</color>
+    <!-- Accent Colors (Complementary Warm Tones) -->
+    <color name="color_accent">#F5A623</color> <!-- Golden Yellow -->
+    <color name="color_accent_dark">#C57C19</color> <!-- Dark Golden Yellow -->
+
+    <!-- Additional Colors for Financial Indicators -->
+    <color name="color_earnings">#9C27B0</color> <!-- Red -->
+    <color name="color_withdrawals">#009688</color> <!-- Orange -->
+    <color name="color_commission">#2196F3</color> <!-- Light Blue -->
+    <color name="color_referrals">#3F51B5</color> <!-- Pink -->
+
+    <!-- Status Colors -->
+    <color name="pendingColor">#FFC107</color> <!-- Amber -->
+    <color name="completedColor">#4CAF50</color> <!-- Green -->
+    <color name="failedColor">#F44336</color> <!-- Red -->
+
+    <!-- Text Colors for Status -->
     <color name="pendingTextColor">#000000</color>
     <color name="completedTextColor">#FFFFFF</color>
     <color name="failedTextColor">#FFFFFF</color>
-    <color name="color_error_red">#ff4757</color>
 
-    <!-- colors.xml -->
-    <color name="chart_grid_color">#D3D3D3</color>
-    <color name="purple_200">#BB86FC</color>
+    <!-- Error Color -->
+    <color name="color_error_red">#FF5252</color> <!-- Soft Red -->
+
+    <!-- Chart Grid Color -->
+    <color name="chart_grid_color">#B0BEC5</color> <!-- Light Gray -->
+
+    <!-- Optional Purple Accent for Highlights -->
+    <color name="purple_200">#BB86FC</color> <!-- Purple -->
+
+    <color name="chart_background">#FFFFFF</color>
+    <color name="chart_text">#000000</color>
+    <color name="chart_grid">#E0E0E0</color>
+    <color name="chart_increasing">#4CAF50</color>
+    <color name="chart_decreasing">#F44336</color>
+    <color name="chart_shadow">#9E9E9E</color>
 
 </resources>

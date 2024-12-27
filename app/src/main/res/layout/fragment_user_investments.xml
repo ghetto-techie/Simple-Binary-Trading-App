@@ -21,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/nunito_semibold"
             android:text="Investment History"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -54,5 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_investment" />
+
+        <include
+            android:id="@+id/emptyListNotice"
+            layout="@layout/layout_empty_record_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

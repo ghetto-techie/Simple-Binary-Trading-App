@@ -20,18 +20,27 @@
             app:layout_collapseMode="pin"
             app:menu="@menu/main_appbar">
 
+            <!-- Circular ImageView as Navigation Icon -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/toolbarNavigationIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="8dp"
+                android:src="@color/color_primary_light"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner.Full" />
+
+            <!-- Centered Title -->
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:fontFamily="@font/poppins"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/app_name"
-                android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+                android:textAppearance="?attr/textAppearanceHeadlineSmall" />
 
         </com.google.android.material.appbar.MaterialToolbar>
-
-        <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
 
     </com.google.android.material.appbar.AppBarLayout>
 

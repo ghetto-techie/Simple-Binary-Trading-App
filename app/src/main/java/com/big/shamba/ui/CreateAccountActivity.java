@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.big.shamba.R;
@@ -16,7 +15,6 @@ import com.big.shamba.models.Referral;
 import com.big.shamba.models.User;
 import com.big.shamba.utility.FirestoreCollections;
 import com.big.shamba.utility.ReferralCodeGenerator;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,7 +25,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import android.util.Patterns;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;

@@ -2,10 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/actionInvite"
         android:icon="@drawable/ic_link"
         android:title="@string/invite"
+        android:visible="false"
         app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/actionNotifications"
+        android:icon="@drawable/ic_notifications"
+        android:title="notifications"
+        app:showAsAction="always" />
 </menu>

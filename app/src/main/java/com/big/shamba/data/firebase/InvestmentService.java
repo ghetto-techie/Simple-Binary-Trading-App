@@ -6,7 +6,6 @@ import android.util.Log;
 import com.big.shamba.models.Investment;
 import com.big.shamba.models.InvestmentPackage;
 import com.big.shamba.models.Referral;
-import com.big.shamba.models.ReferralCommissionWalletTransaction;
 import com.big.shamba.models.User;
 import com.big.shamba.utility.FirestoreCollections;
 import com.google.android.gms.tasks.Task;
@@ -19,17 +18,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class InvestmentService {
     private static final String TAG = "InvestmentService";

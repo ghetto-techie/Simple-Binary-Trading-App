@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +18,7 @@ import com.big.shamba.models.InvestmentPackage;
 import com.big.shamba.models.dto.Category;
 import com.big.shamba.ui.adapter.recyclerview.HomeVerticalRecyclerViewAdapter;
 import com.big.shamba.ui.viewmodels.InvestmentPackageViewModel;
-import com.big.shamba.utility.FirestoreCollections;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;

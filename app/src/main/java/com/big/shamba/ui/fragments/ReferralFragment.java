@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.big.shamba.R;
 import com.big.shamba.models.Referral;
 import com.big.shamba.ui.adapter.recyclerview.ReferralsRecyclerViewAdapter;
+import com.big.shamba.ui.fragments.dialogs.InviteUserDialogFragment;
 import com.big.shamba.ui.viewmodels.AuthViewModel;
 import com.big.shamba.ui.viewmodels.ReferralViewModel;
 
@@ -45,6 +47,12 @@ public class ReferralFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_referrals, container, false);
+        // Initialize LottieAnimationView
+        LottieAnimationView inviteAnimationView = view.findViewById(R.id.emptyListAnimationView);
+
+        // Ensure animation is played
+        inviteAnimationView.setAnimation(R.raw.empty); // Optional if already set in XML
+        inviteAnimationView.playAnimation();
 
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         referralViewModel = new ViewModelProvider(requireActivity()).get(ReferralViewModel.class);
@@ -66,6 +74,10 @@ public class ReferralFragment extends Fragment {
                     }
                 })
         ;
+
+        view.findViewById(R.id.inviteFAB).setOnClickListener(v -> {
+            inviteNewMember();
+        });
 
         return view;
     }
@@ -104,5 +116,10 @@ public class ReferralFragment extends Fragment {
             emptyListNotice.setVisibility(View.GONE);
             Log.d(TAG, "displayNotice: Notice Hidden");
         }
+    }
+
+    private void inviteNewMember() {
+        InviteUserDialogFragment inviteUserDialogFragment = new InviteUserDialogFragment();
+        inviteUserDialogFragment.show(getChildFragmentManager(), "Invite");
     }
 }

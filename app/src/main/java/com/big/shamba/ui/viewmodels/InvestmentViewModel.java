@@ -31,8 +31,14 @@ public class InvestmentViewModel extends ViewModel {
     private final MutableLiveData<List<Investment>> allInvestmentsLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<Investment>> filteredInvestmentsLiveData = new MutableLiveData<>();
     private final MutableLiveData<Double> totalEarningsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Integer> newMaturedInvestmentCount = new MutableLiveData<>(0);
+    private final List<String> newlyMaturedIds = new ArrayList<>(); // Track new matured investments
+
+
+    private String activeFilter = "all"; // Track the current filter
 
     private ListenerRegistration totalEarningsListenerRegistration;
+    private ListenerRegistration investmentsListenerRegistration;
 
     public InvestmentViewModel(InvestmentService investmentService) {
         this.investmentService = investmentService;
@@ -172,6 +178,94 @@ public class InvestmentViewModel extends ViewModel {
         ;
     }
 
+    private final MutableLiveData<Integer> newPendingInvestmentCount = new MutableLiveData<>(0);
+    private final List<String> newlyPendingIds = new ArrayList<>();
+
+    // Getters for new pending investments
+    public LiveData<Integer> getNewPendingInvestmentCount() {
+        return newPendingInvestmentCount;
+    }
+
+    public List<String> getNewlyPendingIds() {
+        return newlyPendingIds;
+    }
+
+    // Mark pending investments as viewed
+    public void markPendingInvestmentsAsViewed() {
+        newlyPendingIds.clear();
+        newPendingInvestmentCount.setValue(0); // Reset badge count
+    }
+
+
+    public void clearNewMaturedInvestmentCount() {
+        newMaturedInvestmentCount.setValue(0);
+    }
+
+    public void startListeningForInvestments(String userId) {
+        investmentsListenerRegistration = investmentService
+                .getFirestoreService()
+                .getFirestore()
+                .collection(FirestoreCollections.INVESTMENTS)
+                .whereEqualTo("userId", userId)
+                .orderBy("endDate")
+                .addSnapshotListener((querySnapshot, e) -> {
+                    if (e != null) {
+                        Log.e(TAG, "startListeningForInvestments: Failed to listen", e);
+                        return;
+                    }
+
+                    if (querySnapshot != null) {
+                        List<Investment> investments = new ArrayList<>();
+                        List<String> newPending = new ArrayList<>();
+                        List<String> newMatured = new ArrayList<>();
+
+                        for (DocumentSnapshot snapshot : querySnapshot.getDocuments()) {
+                            Investment investment = snapshot.toObject(Investment.class);
+                            if (investment != null) {
+                                investment.setInvestmentId(snapshot.getId());
+                                investments.add(investment);
+
+                                // Identify new pending investments
+                                if (!investment.isMatured() && !newlyPendingIds.contains(investment.getInvestmentId())) {
+                                    newPending.add(investment.getInvestmentId());
+                                }
+
+                                // Identify new matured investments
+                                if (investment.isMatured() && !newlyMaturedIds.contains(investment.getInvestmentId())) {
+                                    newMatured.add(investment.getInvestmentId());
+                                }
+                            }
+                        }
+
+                        allInvestmentsLiveData.setValue(investments);
+                        applyCurrentFilter();
+
+                        // Update badge counts and new IDs
+                        newlyPendingIds.addAll(newPending);
+                        newPendingInvestmentCount.setValue(newPending.size());
+
+                        newlyMaturedIds.addAll(newMatured);
+                        newMaturedInvestmentCount.setValue(newMatured.size());
+                    }
+                })
+        ;
+    }
+
+    // Apply the current filter to the investment list
+    private void applyCurrentFilter() {
+        Log.d(TAG, "applyCurrentFilter: Applying filter -> " + activeFilter);
+        filterInvestments(activeFilter);
+    }
+
+
+    // Stop listening for updates
+    public void stopListeningForInvestments() {
+        if (investmentsListenerRegistration != null) {
+            investmentsListenerRegistration.remove();
+            investmentsListenerRegistration = null;
+        }
+    }
+
     // Load all investments
     public void loadInvestments(String userId) {
         Log.d(TAG, "loadInvestments: _");
@@ -185,8 +279,15 @@ public class InvestmentViewModel extends ViewModel {
         ;
     }
 
+    // Mark matured investments as viewed
+    public void markMaturedInvestmentsAsViewed() {
+        newlyMaturedIds.clear();
+        newMaturedInvestmentCount.setValue(0); // Reset badge count
+    }
+
     // Filter investments by status
     public void filterInvestments(String filter) {
+        activeFilter = filter; // Update the active filter
         List<Investment> allInvestments = allInvestmentsLiveData.getValue();
         if (allInvestments == null) return;
 
@@ -208,18 +309,10 @@ public class InvestmentViewModel extends ViewModel {
                 break;
         }
 
+        Log.d(TAG, "filterInvestments: Filtered investments -> " + filteredList);
         filteredInvestmentsLiveData.setValue(filteredList);
     }
 
-    // Get LiveData for filtered investments
-    public LiveData<List<Investment>> getFilteredInvestments() {
-        return filteredInvestmentsLiveData;
-    }
-
-    // Get LiveData for total earnings
-    public LiveData<Double> getTotalEarningsLiveData() {
-        return totalEarningsLiveData;
-    }
 
     public void fetchTotalEarningsCountRealTime(String userId) {
         if (totalEarningsListenerRegistration != null) {
@@ -241,11 +334,30 @@ public class InvestmentViewModel extends ViewModel {
         ;
     }
 
+    // Get LiveData for filtered investments
+    public LiveData<List<Investment>> getFilteredInvestments() {
+        return filteredInvestmentsLiveData;
+    }
+
+    public LiveData<Integer> getNewMaturedInvestmentCount() {
+        return newMaturedInvestmentCount;
+    }
+
     public LiveData<List<Investment>> getMaturedInvestments() {
         Log.d(TAG, "getMaturedInvestments: Matured Investments > " + maturedInvestmentsLiveData.getValue());
         return maturedInvestmentsLiveData;
 
     }
+
+    // Get LiveData for total earnings
+    public LiveData<Double> getTotalEarningsLiveData() {
+        return totalEarningsLiveData;
+    }
+
+    public List<String> getNewlyMaturedIds() {
+        return newlyMaturedIds;
+    }
+
 
     public LiveData<List<Investment>> getAllUserInvestments() {
         Log.d(TAG, "getAllUserInvestments: All Investments > " + allUserInvestmentsLiveData.getValue());

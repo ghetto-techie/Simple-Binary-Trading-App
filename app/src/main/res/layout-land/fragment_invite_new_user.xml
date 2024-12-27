@@ -9,151 +9,145 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:weightSum="1">
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="250dp"
-                android:layout_height="300dp"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/emptyListAnimationView"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:layout_weight="0.3"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="invite.lottie"
+                app:lottie_loop="true" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/referral_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_weight="0.7"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/poppins"
-                android:text="Invite a friend"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/color_primary_light"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <!--            TODO: Change the link description text-->
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-condensed-light"
-                android:text="@string/invite_link_description"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="@+id/textView9"
-                app:layout_constraintStart_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:layout_constraintVertical_bias="0.00999999" />
-
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/referralCodeInput"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="@+id/textView12"
-                app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"
-                app:layout_constraintVertical_bias="1.0"
-                app:strokeColor="@color/color_primary_light">
-
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="Invite a friend"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/color_primary_light"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Your Referral Code"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/color_primary_light" />
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="@string/invite_link_description"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintEnd_toEndOf="@+id/textView9"
+                    app:layout_constraintStart_toStartOf="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="0.00999999" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/referralCodeInput"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <TextView
-                            android:id="@+id/referralCodeTV"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ellipsize="marquee"
-                            android:fontFamily="@font/poppins_medium"
-                            android:maxLines="4"
-                            android:paddingEnd="8dp"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                            android:textColor="@color/color_primary_light"
-                            android:typeface="monospace"
-                            tools:text="REF12345" />
+                            android:text="Your Referral Code"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                            android:textColor="@color/color_primary_light" />
 
-                        <ImageButton
-                            android:id="@+id/copyReferralCodeBtn"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Copy Code"
-                            android:src="@drawable/ic_copy"
-                            app:tint="?attr/colorPrimary" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/referralCodeTV"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:fontFamily="@font/nunito_semibold"
+                                android:maxLines="4"
+                                android:paddingEnd="8dp"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                                android:textColor="@color/color_primary_light"
+                                android:typeface="monospace"
+                                tools:text="REF12345" />
+
+                            <ImageButton
+                                android:id="@+id/copyReferralCodeBtn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Copy Code"
+                                android:src="@drawable/ic_copy"
+                                app:tint="?attr/colorPrimary" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/copyReferralLinkBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:padding="24dp"
-                android:text="Copy Link"
-                android:textAllCaps="true"
-                app:cornerRadius="15dp"
-                app:icon="@drawable/ic_link"
-                app:iconTint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/referralCodeInput" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/copyReferralLinkBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:padding="24dp"
+                    android:text="Copy Link"
+                    android:textAllCaps="true"
+                    app:cornerRadius="15dp"
+                    app:icon="@drawable/ic_link"
+                    app:iconTint="@color/white" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shareReferralLinkBtn"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:padding="24dp"
-                android:text="Share"
-                android:textAllCaps="true"
-                app:cornerRadius="15dp"
-                app:icon="@drawable/ic_share"
-                app:iconTint="@color/color_primary"
-                app:layout_constraintEnd_toEndOf="@+id/copyReferralLinkBtn"
-                app:layout_constraintStart_toStartOf="@+id/copyReferralLinkBtn"
-                app:layout_constraintTop_toBottomOf="@+id/copyReferralLinkBtn" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/shareReferralLinkBtn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:padding="24dp"
+                    android:text="Share"
+                    android:textAllCaps="true"
+                    app:cornerRadius="15dp"
+                    app:icon="@drawable/ic_share"
+                    app:iconTint="@color/color_primary_light" />
+            </LinearLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

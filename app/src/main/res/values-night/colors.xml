@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Additional Colors for Financial Indicators -->
+    <color name="color_earnings">#00BCD4</color> <!-- Red -->
+    <color name="color_withdrawals">#009688</color> <!-- Orange -->
+    <color name="color_commission">#2196F3</color> <!-- Light Blue -->
+    <color name="color_referrals">#3F51B5</color> <!-- Pink -->
+
+    <color name="chart_background">#121212</color>
+    <color name="chart_text">#FFFFFF</color>
+    <color name="chart_grid">#424242</color>
+    <color name="chart_increasing">#66BB6A</color>
+    <color name="chart_decreasing">#E57373</color>
+    <color name="chart_shadow">#BDBDBD</color>
+
+</resources>

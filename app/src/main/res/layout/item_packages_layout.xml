@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="marquee"
-        android:fontFamily="@font/poppins_light"
+        android:fontFamily="@font/nunito_light"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:text="@string/package_type" />
 

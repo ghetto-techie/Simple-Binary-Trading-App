@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.big.shamba.R;
 import com.big.shamba.models.User;
 import com.big.shamba.ui.viewmodels.AuthViewModel;
@@ -50,6 +50,13 @@ public class InviteUserDialogFragment extends DialogFragment {
     public AlertDialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = getLayoutInflater().inflate(R.layout.fragment_invite_new_user, null);
 
+        LottieAnimationView animationView = view.findViewById(R.id.inviteAnimationView);
+        animationView.setFailureListener(throwable -> {
+            Log.e("LottieError", "Failed to load animation", throwable);
+        });
+        // Play the animation
+        animationView.playAnimation();
+
         authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
@@ -58,21 +65,24 @@ public class InviteUserDialogFragment extends DialogFragment {
         copyLinkButton = view.findViewById(R.id.copyReferralLinkBtn);
         shareLinkButton = view.findViewById(R.id.shareReferralLinkBtn);
 
-        authViewModel.getCurrentUser().observe(this, currentUser -> {
-            if (currentUser != null) {
-                userViewModel.getUserDetails(currentUser.getUid()).observe(this, userFirestoreDoc -> {
-                    if (userFirestoreDoc != null) {
-                        loadUserData(userFirestoreDoc);
+        authViewModel
+                .getCurrentUser()
+                .observe(this, currentUser -> {
+                    if (currentUser != null) {
+                        userViewModel.getUserDetails(currentUser.getUid()).observe(this, userFirestoreDoc -> {
+                            if (userFirestoreDoc != null) {
+                                loadUserData(userFirestoreDoc);
+                            } else {
+                                Log.d(TAG, "onChanged: User NOT found in firestore");
+                                Toast.makeText(requireActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
-                        Log.d(TAG, "onChanged: User NOT found in firestore");
-                        Toast.makeText(requireActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onChanged: User is not logged in");
+                        Toast.makeText(requireActivity(), "Please log in", Toast.LENGTH_SHORT).show();
                     }
-                });
-            } else {
-                Log.d(TAG, "onChanged: User is not logged in");
-                Toast.makeText(requireActivity(), "Please log in", Toast.LENGTH_SHORT).show();
-            }
-        });
+                })
+        ;
 
         copyLinkButton.setOnClickListener(v -> {
             authViewModel.getCurrentUser().observe(this, currentUser -> {

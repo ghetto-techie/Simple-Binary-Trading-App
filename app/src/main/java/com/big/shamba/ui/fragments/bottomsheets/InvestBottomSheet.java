@@ -1,12 +1,15 @@
 package com.big.shamba.ui.fragments.bottomsheets;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +18,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.big.shamba.R;
 import com.big.shamba.models.InvestmentPackage;
 import com.big.shamba.ui.viewmodels.InvestmentViewModel;
 import com.big.shamba.ui.viewmodels.WalletViewModel;
-import com.bumptech.glide.Glide;
+import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.CandleData;
+import com.github.mikephil.charting.data.CandleDataSet;
+import com.github.mikephil.charting.data.CandleEntry;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -27,6 +38,10 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class InvestBottomSheet extends BottomSheetDialogFragment {
     private static final String TAG = "InvestBottomSheet";
@@ -48,18 +63,19 @@ public class InvestBottomSheet extends BottomSheetDialogFragment {
     private float maxValue;
     private long walletBalance;
 
-    private ImageView packageImageView;
     private TextView packageNameTV;
     private TextView packageTimePeriodTV;
     private TextView packageInterestTV;
     private TextView minAmountTV;
     private TextView maxAmountTV;
+    private CandleStickChart candlestickChart;
     private TextView estimatedInterestTV;
     private Slider amountSlider;
     private TextInputLayout investmentAmountTIL;
     private MaterialButton investInPackageBottomSheetButton;
     private InvestmentViewModel investmentViewModel;
     private WalletViewModel walletViewModel;
+    private LottieAnimationView animationView;
 
     public static InvestBottomSheet newInstance(InvestmentPackage investmentPackage) {
         Log.d(TAG, "newInstance: ");
@@ -104,29 +120,42 @@ public class InvestBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
+    private List<CandleEntry> generateDummyData(int count) {
+        List<CandleEntry> entries = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < count; i++) {
+            float high = random.nextFloat() * 100 + 100; // Random high between 100 and 200
+            float low = high - random.nextFloat() * 50; // Random low up to 50 below high
+            float open = low + random.nextFloat() * (high - low); // Open between low and high
+            float close = low + random.nextFloat() * (high - low); // Close between low and high
+
+            entries.add(new CandleEntry(i, high, low, open, close));
+        }
+
+        return entries;
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottomsheet_invest_in_package, container, false);
 
-        packageImageView = view.findViewById(R.id.investInPackageImage);
         packageNameTV = view.findViewById(R.id.packageNameTV);
         packageTimePeriodTV = view.findViewById(R.id.packageTimePeriodTV);
         packageInterestTV = view.findViewById(R.id.packageInterestTV);
         maxAmountTV = view.findViewById(R.id.maxAmountTV);
         minAmountTV = view.findViewById(R.id.minAmountTV);
         estimatedInterestTV = view.findViewById(R.id.estimatedInterestTV);
+        candlestickChart = view.findViewById(R.id.candlestickChart);
         amountSlider = view.findViewById(R.id.amountSlider);
         investmentAmountTIL = view.findViewById(R.id.investmentAmountTIL);
         investInPackageBottomSheetButton = view.findViewById(R.id.investInPackageBottomSheetButton);
 
-        Glide
-                .with(requireContext())
-                .load(packageImage)
-                .placeholder(R.color.color_primary_light)
-                .fitCenter()
-                .into(packageImageView)
-        ;
+        setupCandlestickChart(candlestickChart);
+        simulateRealTimeUpdates(candlestickChart, 100);
+
         packageNameTV.setText(packageName);
         packageTimePeriodTV.setText(timePeriod);
         packageInterestTV.setText(interestRate + "% interest rate");
@@ -191,11 +220,21 @@ public class InvestBottomSheet extends BottomSheetDialogFragment {
                             } else {
                                 investmentAmountTIL.setError(null); // Clear the error
 
-                                // Show a progress dialog
+                                View dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_loading, null);
+
+                                // Create the dialog
                                 AlertDialog progressDialog = new MaterialAlertDialogBuilder(requireActivity())
-                                        .setView(R.layout.layout_loading)
+                                        .setView(dialogView)
                                         .setCancelable(false)
                                         .create();
+
+                                // Access LottieAnimationView and ensure the animation is set correctly
+                                animationView = dialogView.findViewById(R.id.loadingAnimationView);
+                                animationView.setAnimation(R.raw.loading); // Load animation dynamically
+                                animationView.setRepeatCount(LottieDrawable.INFINITE); // Loop the animation
+                                animationView.playAnimation();
+
+                                // Show the dialog
                                 progressDialog.show();
 
                                 // Disable the button to prevent multiple clicks
@@ -231,6 +270,136 @@ public class InvestBottomSheet extends BottomSheetDialogFragment {
         ;
 
         return view;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (handler != null && updateChartTask != null) {
+            handler.removeCallbacks(updateChartTask);
+        }
+    }
+
+
+    private final Handler handler = new Handler();
+    private Runnable updateChartTask;
+
+    private void simulateRealTimeUpdates(CandleStickChart chart, float initialPrice) {
+        List<CandleEntry> entries = new ArrayList<>();
+        Random random = new Random();
+        float[] currentPrice = {initialPrice}; // Use an array to keep it mutable
+
+        updateChartTask = new Runnable() {
+            int index = 0;
+
+            @Override
+            public void run() {
+                // Generate realistic data for the next candlestick
+                float open = currentPrice[0];
+                float close = open + (random.nextFloat() - 0.5f) * 10;
+                float high = Math.max(open, close) + random.nextFloat() * 5;
+                float low = Math.min(open, close) - random.nextFloat() * 5;
+
+                entries.add(new CandleEntry(index++, high, low, open, close));
+                currentPrice[0] = close;
+
+                // Update chart on UI thread
+                updateChart(chart, entries);
+
+                // Schedule the next update
+                handler.postDelayed(this, 1000); // 1-second interval
+            }
+        };
+
+        handler.post(updateChartTask); // Start the periodic task
+    }
+
+    private void updateChart(CandleStickChart chart, List<CandleEntry> entries) {
+        CandleDataSet dataSet;
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+            dataSet = (CandleDataSet) chart.getData().getDataSetByIndex(0);
+            dataSet.setValues(entries);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+            chart.invalidate();
+        } else {
+            dataSet = new CandleDataSet(entries, "Real-Time Trading Data");
+            dataSet.setShadowColor(Color.GRAY);
+            dataSet.setDecreasingColor(Color.RED);
+            dataSet.setDecreasingPaintStyle(Paint.Style.FILL);
+            dataSet.setIncreasingColor(Color.GREEN);
+            dataSet.setIncreasingPaintStyle(Paint.Style.FILL);
+            dataSet.setNeutralColor(Color.BLUE);
+            dataSet.setDrawValues(false);
+
+            CandleData candleData = new CandleData(dataSet);
+            chart.setData(candleData);
+            chart.invalidate();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Stop the updates to prevent memory leaks
+        if (handler != null && updateChartTask != null) {
+            handler.removeCallbacks(updateChartTask);
+        }
+    }
+
+    private void setupCandlestickChart(CandleStickChart chart) {
+        List<CandleEntry> dummyData = generateDummyData(50);
+
+        CandleDataSet dataSet = new CandleDataSet(dummyData, "Trading Data");
+        dataSet.setShadowColor(requireContext().getColor(R.color.chart_shadow));
+        dataSet.setDecreasingColor(requireContext().getColor(R.color.chart_decreasing));
+        dataSet.setDecreasingPaintStyle(Paint.Style.FILL);
+        dataSet.setIncreasingColor(requireContext().getColor(R.color.chart_increasing));
+        dataSet.setIncreasingPaintStyle(Paint.Style.FILL);
+        dataSet.setNeutralColor(requireContext().getColor(R.color.chart_text));
+        dataSet.setDrawValues(false); // Disable value text on the chart
+
+        CandleData candleData = new CandleData(dataSet);
+        chart.setData(candleData);
+
+        // Chart appearance
+        chart.setBackgroundColor(requireContext().getColor(R.color.chart_background));
+        chart.getDescription().setEnabled(false); // Remove chart description
+        chart.setDrawGridBackground(false); // Remove grid background
+        chart.setPinchZoom(true);
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+
+        // Gestures
+        chart.setPinchZoom(true);
+        chart.setDoubleTapToZoomEnabled(true);
+        chart.setHighlightPerDragEnabled(true);
+
+        // X-Axis configuration
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(true);
+        xAxis.setGridColor(requireContext().getColor(R.color.chart_grid));
+        xAxis.setTextColor(requireContext().getColor(R.color.chart_text));
+        xAxis.setGranularity(1f);
+
+        // Y-Axis configuration
+        YAxis leftAxis = chart.getAxisLeft();
+        LimitLine limitLine = new LimitLine(150, "Threshold");
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setGridColor(requireContext().getColor(R.color.chart_grid));
+        leftAxis.setTextColor(requireContext().getColor(R.color.chart_text));
+        leftAxis.setGranularityEnabled(true);
+        limitLine.setLineColor(Color.RED);
+        limitLine.setLineWidth(2f);
+        limitLine.setTextColor(Color.RED);
+        limitLine.setTextSize(12f);
+        leftAxis.addLimitLine(limitLine);
+
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setEnabled(false); // Disable the right Y-axis
+
+        chart.invalidate(); // Refresh the chart
     }
 
     private void updateEstimatedInterest(float amount) {

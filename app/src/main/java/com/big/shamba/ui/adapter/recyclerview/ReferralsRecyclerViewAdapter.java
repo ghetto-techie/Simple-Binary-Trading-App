@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.big.shamba.R;
 import com.big.shamba.models.Referral;
-import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
